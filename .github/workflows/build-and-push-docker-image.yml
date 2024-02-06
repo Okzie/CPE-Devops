@@ -1,0 +1,40 @@
+name: CI devops 2023 - Build and Push Docker Image
+on:
+  workflow_run:
+    workflows: ["CI devops 2023 - Test Backend"]
+    types:
+      - completed
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-docker-image:
+    runs-on: ubuntu-22.04
+    steps:
+     - name: Login to DockerHub
+       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+     - name: Checkout code
+       uses: actions/checkout@v2.5.0
+
+     - name: Build image and push backend
+       uses: docker/build-push-action@v3
+       with:
+         context: ./TP1/Backend/simple-api
+         tags:  ${{secrets.DOCKERHUB_USERNAME}}/backend:latest
+         push: ${{ github.ref == 'refs/heads/main' }}
+
+     - name: Build image and push database
+       uses: docker/build-push-action@v3
+       with:
+         context: ./TP1/Database
+         tags: ${{secrets.DOCKERHUB_USERNAME}}/database:latest
+         push: ${{ github.ref == 'refs/heads/main' }}
+         
+     - name: Build image and push httpd
+       uses: docker/build-push-action@v3
+       with:
+         context: ./TP1/Httpserv
+         tags: ${{secrets.DOCKERHUB_USERNAME}}/httpserv:latest
+         push: ${{ github.ref == 'refs/heads/main' }}

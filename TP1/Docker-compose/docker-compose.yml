@@ -3,7 +3,8 @@ version: '3.7'
 services:
   backend:
     build:
-      context: ../Backend/simple-api-student-main/  # Chemin vers le répertoire contenant le code source de l'API backend
+      context: ../Backend/simple-api/  # Chemin vers le répertoire contenant le code source de l'API backend
+    container_name: backend  # Nomme le conteneur "backend"
     networks:
       - my-network  # Utilise le réseau nommé "my-network"
     environment:
