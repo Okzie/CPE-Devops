@@ -4,9 +4,9 @@ on:
     workflows: ["CI devops 2023 - Test Backend"]
     types:
       - completed
-  push:
-    branches:
-      - main
+#   push:
+#     branches:
+#       - main
 
 jobs:
   build-and-push-docker-image:
@@ -31,7 +31,7 @@ jobs:
          context: ./TP1/Database
          tags: ${{secrets.DOCKERHUB_USERNAME}}/database:latest
          push: ${{ github.ref == 'refs/heads/main' }}
-         
+
      - name: Build image and push httpd
        uses: docker/build-push-action@v3
        with:
