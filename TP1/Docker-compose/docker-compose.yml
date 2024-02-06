@@ -7,6 +7,7 @@ services:
     networks:
       - my-network  # Utilise le réseau nommé "my-network"
     environment:
+      - DB_URL=jdbc:postgresql://database:5432/db # Définit la variable d'environnement DB_URL avec la valeur "jdbc:postgresql://database:5432/db"
       - DB_USERNAME=user  # Définit la variable d'environnement DB_USERNAME avec la valeur "user"
       - DB_PASSWORD=pwd  # Définit la variable d'environnement DB_PASSWORD avec la valeur "pwd"
     depends_on:
@@ -24,7 +25,7 @@ services:
 
   httpd:
     build:
-      context: ./httpserv/  # Chemin vers le répertoire contenant le code source du serveur HTTP
+      context: ../Httpserv/  # Chemin vers le répertoire contenant le code source du serveur HTTP
     ports:
       - "80:80"  # Mappe le port 80 du conteneur vers le port 80 de l'hôte
     networks:

@@ -7,7 +7,7 @@ docker build -t okzie/database .
 ```
 
 ```bash
-docker run -d -p 5432:5432 --name database --network app-network -e POSTGRES_PASSWORD="pwd" -v /my/own/datadir:/var/lib/postgresql/data okzie/database 
+docker run -d -p 5432:5432 --name database --network app-network -e POSTGRES_DB=db -e POSTGRES_USER=user -e POSTGRES_PASSWORD="pwd" -v /my/own/datadir:/var/lib/postgresql/data okzie/database 
 ```
 
 ```bash
@@ -49,7 +49,7 @@ ENTRYPOINT ["java", "-jar", "myapp.jar"]
 ```
 
 ```bash
-docker run -d --name simpleapi-student -p 8082:8080 --network app-network -e DB_USERNAME="user" -e DB_PASSWORD="pwd" okzie/simpleapi-student
+docker run -d --name backend -p 8082:8080 --network app-network -e DB_URL="jdbc:postgresql://database:5432/db" -e DB_USERNAME="user" -e DB_PASSWORD="pwd" okzie/simpleapi-student
 ```
 
 ## Http server
@@ -75,7 +75,7 @@ docker tag okzie/database okzie/database:1.0
 ```
 
 ```bash
-docker tag okzie/simpleapi-student okzie/simpleapi-student:1.0
+docker tag okzie/backend okzie/backend:1.0
 ```
 
 ```bash
@@ -93,3 +93,5 @@ docker push okzie/simpleapi-student:1.0
 ```sh
 docker push okzie/httpserv:1.0
 ```
+
+Toute mes images sont maintenant disponible : https://hub.docker.com/u/okzie
