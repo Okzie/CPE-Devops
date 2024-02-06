@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: ../Backend/simple-api-student-main/  # Chemin vers le répertoire contenant le code source de l'API backend
+    networks:
+      - my-network  # Utilise le réseau nommé "my-network"
+    environment:
+      - DB_USERNAME=user  # Définit la variable d'environnement DB_USERNAME avec la valeur "user"
+      - DB_PASSWORD=pwd  # Définit la variable d'environnement DB_PASSWORD avec la valeur "pwd"
+    depends_on:
+      - database  # Dépend du service "database"
+
+  database:
+    build:
+      context: ../Database/  # Chemin vers le répertoire contenant le code source de la base de données
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pwd
+    networks:
+      - my-network  # Utilise le réseau nommé "my-network"
+
+  httpd:
+    build:
+      context: ./httpserv/  # Chemin vers le répertoire contenant le code source du serveur HTTP
+    ports:
+      - "80:80"  # Mappe le port 80 du conteneur vers le port 80 de l'hôte
+    networks:
+      - my-network  # Utilise le réseau nommé "my-network"
+    depends_on:
+      - backend  # Dépend du service "backend"
+
+networks:
+  my-network:  # Définit le réseau nommé "my-network"
