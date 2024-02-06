@@ -1,4 +1,4 @@
-# TP1 part 01 - Docker
+# TP part 01 - Docker
 
 ## Database
 
@@ -49,7 +49,7 @@ ENTRYPOINT ["java", "-jar", "myapp.jar"]
 ```
 
 ```bash
-docker run -d --name backend -p 8082:8080 --network app-network -e DB_URL="jdbc:postgresql://database:5432/db" -e DB_USERNAME="user" -e DB_PASSWORD="pwd" okzie/simpleapi-student
+docker run -d --name backend -p 8082:8080 --network app-network -e DB_URL="jdbc:postgresql://database:5432/db" -e DB_USERNAME="user" -e DB_PASSWORD="pwd" okzie/simple-api
 ```
 
 ## Http server
