@@ -1,0 +1,29 @@
+name: CI devops 2023 - Deploy app
+on:
+  workflow_run:
+    workflows: ["CI devops 2023 - Build and Push Docker Image"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+    
+        - name: Setup Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.x'
+    
+        - name: Install Ansible
+          run: pip install ansible
+    
+        - name: Run Ansible playbook
+          run: |
+            echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/devops_aws
+            ansible-playbook -i ./TP3/ansible/inventories/setup.yml ./TP3/ansible/playbook.yml
+

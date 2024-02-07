@@ -1,0 +1,18 @@
+---
+# tasks file for roles/database
+- name: Lunching the database container
+  docker_container:
+    name: "{{ db_container_name }}"
+    image: okzie/database:latest
+    networks:
+      - name: my_network
+    env:
+      POSTGRES_DB: "{{ db_name }}"
+      POSTGRES_USER: "{{ db_user }}"
+      POSTGRES_PASSWORD: "{{ db_password }}"
+    ports:
+      - "5432:5432"
+    state: started
+    restart_policy: always
+    volumes:
+      - /home/centos/postgres:/var/lib/postgresql/data

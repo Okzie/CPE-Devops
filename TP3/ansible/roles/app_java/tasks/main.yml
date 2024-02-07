@@ -1,0 +1,14 @@
+---
+# tasks file for roles/app_java
+- name: Lunch the java app container
+  docker_container:
+    name: backend
+    image: okzie/backend:latest
+    env:
+      DB_URL: "jdbc:postgresql://{{ db_container_name }}:5432/{{ db_name }}"
+      DB_USERNAME: "{{ db_user }}"
+      DB_PASSWORD: "{{ db_password }}"
+    state: started
+    restart_policy: always
+    networks:
+      - name: my_network

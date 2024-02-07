@@ -34,5 +34,15 @@ services:
     depends_on:
       - backend  # Dépend du service "backend"
 
+  front:
+    build:
+      context: ../Front/devops-front-main/ # Chemin vers le répertoire contenant le code source de l'application front-end
+    container_name: frontend # Nomme le conteneur "frontend"
+    networks:
+      - my-network  # Utilise le réseau nommé "my-network"
+    depends_on:
+      - backend # Dépend du service "backend"
+      - httpd  # Dépend du service "httpd" 
+
 networks:
   my-network:  # Définit le réseau nommé "my-network"

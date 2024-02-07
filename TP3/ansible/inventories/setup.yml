@@ -1,0 +1,11 @@
+all:
+ vars:
+   ansible_user: centos
+   ansible_ssh_private_key_file: ~/.ssh/devops_aws
+   db_name: db
+   db_user: user
+   db_password: pwd
+   db_container_name: database
+ children:
+   prod:
+     hosts: florian.le-coustumer.takima.cloud

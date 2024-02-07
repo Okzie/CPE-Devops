@@ -1,0 +1,10 @@
+---
+# tasks file for roles/front
+- name: Lunching the front container
+  docker_container:
+    name: frontend
+    image: okzie/frontend:latest
+    networks:
+      - name: my_network
+    state: started
+    restart_policy: always

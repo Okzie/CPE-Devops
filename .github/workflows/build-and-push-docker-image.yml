@@ -38,3 +38,10 @@ jobs:
          context: ./TP1/Httpserv
          tags: ${{secrets.DOCKERHUB_USERNAME}}/httpserv:latest
          push: ${{ github.ref == 'refs/heads/main' }}
+
+     - name: Build image and push frontend
+       uses: docker/build-push-action@v3
+       with:
+         context: ./TP1/Frontend/devops-front-main
+         tags: ${{secrets.DOCKERHUB_USERNAME}}/frontend:latest
+         push: ${{ github.ref == 'refs/heads/main' }}
