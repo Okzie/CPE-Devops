@@ -12,3 +12,4 @@
     restart_policy: always
     networks:
       - name: my_network
+    pull: true

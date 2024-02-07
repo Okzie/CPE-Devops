@@ -16,3 +16,4 @@
     restart_policy: always
     volumes:
       - /home/centos/postgres:/var/lib/postgresql/data
+    pull: true
