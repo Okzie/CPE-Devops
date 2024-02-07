@@ -26,6 +26,7 @@ jobs:
         - name: Run Ansible playbook
           run: |
             mkdir -p ~/.ssh
+            ssh-keyscan -H florian.le-coustumer.takima.cloud >> ~/.ssh/known_hosts
             echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/devops_aws
             chmod 400 ~/.ssh/devops_aws
             ansible-playbook -i ./TP3/ansible/inventories/setup.yml ./TP3/ansible/playbook.yml
