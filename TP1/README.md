@@ -94,4 +94,4 @@ docker push okzie/simpleapi-student:1.0
 docker push okzie/httpserv:1.0
 ```
 
-Toute mes images sont maintenant disponible : https://hub.docker.com/u/okzie
+Toute mes images sont maintenant disponible : https://hub.docker.com/u/okzie 
