@@ -24,7 +24,7 @@ jobs:
      #finally build your app with the latest command
       - name: Build and test with Maven
         run: |
-          cd TP1/Backend/simple-api
+          cd Backend/simple-api
           mvn -B verify sonar:sonar -Dsonar.projectKey=Okzie_CPE-Devops -Dsonar.organization=okzie -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./pom.xml
           # mvn clean verify
           
@@ -46,7 +46,7 @@ jobs:
        uses: docker/build-push-action@v3
        with:
          # relative path to the place where source code with Dockerfile is located
-         context: ./TP1/Backend/simple-api
+         context: ./Backend/simple-api
          # Note: tags has to be all lower-case
          tags:  ${{secrets.DOCKERHUB_USERNAME}}/backend:latest
          # build on feature branches, push only on main branch
@@ -55,14 +55,14 @@ jobs:
      - name: Build image and push database
        uses: docker/build-push-action@v3
        with:
-         context: ./TP1/Database
+         context: ./Database
          tags: ${{secrets.DOCKERHUB_USERNAME}}/database:latest
          push: ${{ github.ref == 'refs/heads/main' }}
          
      - name: Build image and push httpd
        uses: docker/build-push-action@v3
        with:
-         context: ./TP1/Httpserv
+         context: ./Httpserv
          tags: ${{secrets.DOCKERHUB_USERNAME}}/httpserv:latest
          push: ${{ github.ref == 'refs/heads/main' }}
 

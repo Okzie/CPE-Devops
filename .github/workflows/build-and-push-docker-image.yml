@@ -21,27 +21,27 @@ jobs:
      - name: Build image and push backend
        uses: docker/build-push-action@v3
        with:
-         context: ./TP1/Backend/simple-api
+         context: ./Backend/simple-api
          tags:  ${{secrets.DOCKERHUB_USERNAME}}/backend:latest
          push: ${{ github.ref == 'refs/heads/main' }}
 
      - name: Build image and push database
        uses: docker/build-push-action@v3
        with:
-         context: ./TP1/Database
+         context: ./Database
          tags: ${{secrets.DOCKERHUB_USERNAME}}/database:latest
          push: ${{ github.ref == 'refs/heads/main' }}
 
      - name: Build image and push httpd
        uses: docker/build-push-action@v3
        with:
-         context: ./TP1/Httpserv
+         context: ./Httpserv
          tags: ${{secrets.DOCKERHUB_USERNAME}}/httpserv:latest
          push: ${{ github.ref == 'refs/heads/main' }}
 
      - name: Build image and push frontend
        uses: docker/build-push-action@v3
        with:
-         context: ./TP1/Front/devops-front-main
+         context: ./Devops-front
          tags: ${{secrets.DOCKERHUB_USERNAME}}/frontend:latest
          push: ${{ github.ref == 'refs/heads/main' }}
