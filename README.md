@@ -1,3 +1,5 @@
+>Nom : Florian LE COUSTUMER
+
 # TP part 01 - Docker
 
 ## Database
@@ -16,14 +18,15 @@ docker run -d -p 5432:5432 --name database --network app-network -e POSTGRES_DB=
 docker run -d --network app-network -p 8080:8080 adminer
 ```
 
->Lien vers le dockerfile documenté : [Lien](/Database/Dockerfile)
+Lien vers le dockerfile documenté : [Lien](/Database/Dockerfile)
 
 ## Backend API
 
 ### 1-2 : Why do we need a multistage build? And explain each step of this dockerfile.
 
-> L'intéret du multistage est de récupérer une image finale moins lourde car elle ne contient rien qui est en rapport avec le build (dépendances, etc).
-
+```
+L'intéret du multistage est de récupérer une image finale moins lourde car elle ne contient rien qui est en rapport avec le build (dépendances, etc).
+```
 
 ```dockerfile
 # Build
@@ -86,7 +89,7 @@ docker-compose ps
 
 ### 1-3
 
->Lien vers le fichier docker-compose documenté : [Lien](/Docker-compose/docker-compose.yml)
+Lien vers le fichier docker-compose documenté : [Lien](/Docker-compose/docker-compose.yml)
 
 ## Publish
 
@@ -126,17 +129,19 @@ docker push okzie/httpserv:1.0
 
 ### 2-1 : What are testcontainers
 
-> Testcontainers est une bibliothèque Java qui fournit une API légère, réutilisable et flexible pour lancer des instances de Docker à partir de tests JUnit. Elle est principalement utilisée pour tester les interactions avec des bases de données, des API web ou d'autres ressources qui peuvent être encapsulées dans un conteneur Docker.
+```
+Testcontainers est une bibliothèque Java qui fournit une API légère, réutilisable et flexible pour lancer des instances de Docker à partir de tests JUnit. Elle est principalement utilisée pour tester les interactions avec des bases de données, des API web ou d'autres ressources qui peuvent être encapsulées dans un conteneur Docker.
+```
 
 ### 2-2
 
 #### Avant slip des pipelines
->Lien vers le fichier de conf de la pipeline GitHub actions documenté : [Lien](/.github/workflows/main.yml.ignore)
+Lien vers le fichier de conf de la pipeline GitHub actions documenté : [Lien](/.github/workflows/main.yml.ignore)
 
 #### Après slip des pipelines
->Lien vers le fichier de conf de la pipeline test-backend : [Lien](/.github/workflows/deploy-app.yml)
+Lien vers le fichier de conf de la pipeline test-backend : [Lien](/.github/workflows/deploy-app.yml)
 
->Lien vers le fichier de conf de la pipeline build-and-push-docker-images : [Lien](/.github/workflows/build-and-push-docker-image.yml)
+Lien vers le fichier de conf de la pipeline build-and-push-docker-images : [Lien](/.github/workflows/build-and-push-docker-image.yml)
 
 <br><br>
 
@@ -146,20 +151,20 @@ docker push okzie/httpserv:1.0
 
 ### 3-1
 
->Lien vers le fichier inventories setup.yml : [Lien](/ansible/inventories/setup.yml)
+Lien vers le fichier inventories setup.yml : [Lien](/ansible/inventories/setup.yml)
 
 ### 3-2
 
->Lien vers le fichier playbook : [Lien](/ansible/playbook.yml)
+Lien vers le fichier playbook : [Lien](/ansible/playbook.yml)
 
 ## Deploy your App
 
->Lien vers la config de docker_container pour le backend : [Lien](/ansible/roles/app_java/tasks/main.yml)
+Lien vers la config de docker_container pour le backend : [Lien](/ansible/roles/app_java/tasks/main.yml)
 
->La configuration pour les autres service sont globalement les mêmes.
+La configuration pour les autres service sont globalement les mêmes.
 
->Lien pour la database : [Lien](/ansible/roles/database/tasks/main.yml)
+Lien pour la database : [Lien](/ansible/roles/database/tasks/main.yml)
 
->Lien pour le proxy : [Lien](/ansible/roles/proxy/tasks/main.yml)
+Lien pour le proxy : [Lien](/ansible/roles/proxy/tasks/main.yml)
 
->Lien pour le front : [Lien](/ansible/roles/front/tasks/main.yml)
+Lien pour le front : [Lien](/ansible/roles/front/tasks/main.yml)
