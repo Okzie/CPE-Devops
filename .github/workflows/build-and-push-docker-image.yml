@@ -1,47 +1,64 @@
+# Nom du workflow
 name: CI devops 2023 - Build and Push Docker Image
+
+# Déclencheurs du workflow
 on:
+  # Déclenche le workflow lorsqu'un autre workflow spécifié est terminé
   workflow_run:
+    # Nom du workflow qui doit être terminé pour déclencher ce workflow
     workflows: ["CI devops 2023 - Test Backend"]
+    # Types d'événements qui déclenchent ce workflow
     types:
       - completed
+    # Branches sur lesquelles le workflow est déclenché
     branches:
       - main
 
+# Définition des jobs
 jobs:
+  # Job pour construire et publier l'image Docker
   build-and-push-docker-image:
+    # Exécute le job sur une machine virtuelle Ubuntu 22.04
     runs-on: ubuntu-22.04
+    # Exécute le job seulement si le workflow précédent a réussi
     if: github.event.workflow_run.conclusion == 'success'
     steps:
-     - name: Login to DockerHub
-       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+      # Se connecte à DockerHub
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
-     - name: Checkout code
-       uses: actions/checkout@v2.5.0
+      # Récupère le code source du dépôt GitHub
+      - name: Checkout code
+        uses: actions/checkout@v2.5.0
 
-     - name: Build image and push backend
-       uses: docker/build-push-action@v3
-       with:
-         context: ./Backend/simple-api
-         tags:  ${{secrets.DOCKERHUB_USERNAME}}/backend:latest
-         push: ${{ github.ref == 'refs/heads/main' }}
+      # Construit et pousse l'image Docker du backend
+      - name: Build image and push backend
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Backend/simple-api
+          tags:  ${{secrets.DOCKERHUB_USERNAME}}/backend:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
 
-     - name: Build image and push database
-       uses: docker/build-push-action@v3
-       with:
-         context: ./Database
-         tags: ${{secrets.DOCKERHUB_USERNAME}}/database:latest
-         push: ${{ github.ref == 'refs/heads/main' }}
+      # Construit et pousse l'image Docker de la base de données
+      - name: Build image and push database
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Database
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/database:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
 
-     - name: Build image and push httpd
-       uses: docker/build-push-action@v3
-       with:
-         context: ./Httpserv
-         tags: ${{secrets.DOCKERHUB_USERNAME}}/httpserv:latest
-         push: ${{ github.ref == 'refs/heads/main' }}
+      # Construit et pousse l'image Docker du serveur HTTP
+      - name: Build image and push httpd
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Httpserv
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/httpserv:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
 
-     - name: Build image and push frontend
-       uses: docker/build-push-action@v3
-       with:
-         context: ./Devops-front
-         tags: ${{secrets.DOCKERHUB_USERNAME}}/frontend:latest
-         push: ${{ github.ref == 'refs/heads/main' }}
+      # Construit et pousse l'image Docker du frontend
+      - name: Build image and push frontend
+        uses: docker/build-push-action@v3
+        with:
+          context: ./Devops-front
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/frontend:latest
+          push: ${{ github.ref == 'refs/heads/main' }}

@@ -1,11 +1,11 @@
-all:
- vars:
-   ansible_user: centos
-   ansible_ssh_private_key_file: ~/.ssh/devops_aws
-   db_name: db
-   db_user: user
-   db_password: pwd
+all: # Applique les variables à tous les groupes d'hôtes
+ vars: # Définit les variables globales
+   ansible_user: centos # Utilisateur à utiliser pour la connexion SSH
+   ansible_ssh_private_key_file: ~/.ssh/devops_aws # Chemin vers la clé privée SSH à utiliser pour la connexion
+   db_name: db 
+   db_user: user 
+   db_password: pwd 
    db_container_name: database
- children:
-   prod:
-     hosts: florian.le-coustumer.takima.cloud
+ children: # Définit les groupes d'hôtes enfants
+   prod: # Groupe d'hôtes de production
+     hosts: florian.le-coustumer.takima.cloud # Liste des hôtes dans le groupe de production

@@ -1,15 +1,24 @@
 ---
-# tasks file for roles/app_java
+# Ce fichier contient les tâches pour le rôle app_java
+
+# Nom de la tâche
 - name: Lunch the java app container
+  # Utilise le module docker_container d'Ansible
   docker_container:
-    name: backend
+    # Nom du conteneur 
+    name: backend 
+    # Image Docker à utiliser
     image: okzie/backend:latest
-    env:
-      DB_URL: "jdbc:postgresql://{{ db_container_name }}:5432/{{ db_name }}"
-      DB_USERNAME: "{{ db_user }}"
-      DB_PASSWORD: "{{ db_password }}"
-    state: started
-    restart_policy: always
+    # Variables d'environnement à définir dans le conteneur 
+    env: 
+      DB_URL: "jdbc:postgresql://{{ db_container_name }}:5432/{{ db_name }}" # URL de la base de données
+      DB_USERNAME: "{{ db_user }}" # Nom d'utilisateur de la base de données
+      DB_PASSWORD: "{{ db_password }}" # Mot de passe de la base de données
+    # État souhaité pour le conteneur (ici, démarré)
+    state: started 
+    # Politique de redémarrage du conteneur (ici, toujours redémarrer)
+    restart_policy: always 
+    # Réseaux auxquels le conteneur doit être connecté
     networks:
-      - name: my_network
-    pull: true
+      - name: my_network # Nom du réseau
+    pull: true # Indique si l'image doit être tirée avant de lancer le conteneur

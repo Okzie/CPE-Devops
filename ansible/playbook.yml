@@ -1,12 +1,10 @@
-- hosts: all
-  gather_facts: false
-  become: true
-  roles:
+- hosts: all # Applique les tâches à tous les hôtes
+  gather_facts: false # Désactive la collecte d'informations sur les hôtes
+  become: true # Permet d'obtenir les privilèges de superutilisateur
+  roles: # Liste des rôles à appliquer
     - docker
     - network
     - database
     - app_java
     - proxy
     - front
-  
-    
