@@ -18,6 +18,16 @@ docker run -d -p 5432:5432 --name database --network app-network -e POSTGRES_DB=
 docker run -d --network app-network -p 8080:8080 adminer
 ```
 
+Commabde pour supprimer tout ce qui n'est pas utilisé (libérer de l'espace)
+```bash
+docker system prune -a
+```
+
+```bash
+docker volum prune
+```
+(attention supprime les volumes qui peuvent être utilisé par des bases de données)
+
 Lien vers le dockerfile documenté : [Lien](/Database/Dockerfile)
 
 ## Backend API
